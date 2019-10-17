@@ -1,0 +1,25 @@
+<!-- Create a Doctor#show page that displays the doctor's name, department, and appointments,
+with each appointment's date, time, and patient name (linking to the patient's show page). -->
+
+<h1>Doctor Name: <%= @doctor.name %></h1>
+<h2>Department: <%= @doctor.department %></h2>
+
+<!-- <ul>
+<% @doctor.appointments.each do |appointment| %> THIS CREATES DUPLICATES
+    <% @doctor.patients.each do |patient| %>
+        <li><%= appointment.appointment_datetime.strftime("%B %d, %Y at %l:%M") %> :
+        <%= link_to patient.name, patient_path(patient) %></li>
+    <% end %>
+<% end %>
+</ul> -->
+
+<h3>Appointments</h3>
+
+<% @doctor.appointments.each do |appointment| %>
+    <% doctor_patients = @doctor.patients.find(appointment.patient_id) %> <!-- We are finding the patient that is associated with this appointment -->
+
+    <p><%= appointment.appointment_datetime.strftime("%B %d, %Y at %l:%M") %> :
+        <%= link_to doctor_patients.name, patient_path(doctor_patients) %></p>
+    
+<% end %>
+
