@@ -1,0 +1,16 @@
+<!-- Create a Patient#show page that lists the date and time for 
+each of their appointments and links to the corresponding doctor's show page. -->
+
+<h1>Patient Details</h1>
+
+<h2>Patient Name: <%= @patient.name %></h2>
+<h2>Patient Age: <%= @patient.age %></h2>
+
+
+<% @patient.appointments.each do |appointment| %>
+    <% patient_doctors = @patient.doctors.find(appointment.doctor_id) %> <!-- We are finding the patient that is associated with this appointment -->
+
+    <p>Appointment Details : <%= appointment.appointment_datetime.strftime("%B %d, %Y at %l:%M") %> | 
+       Doctor: <%= link_to patient_doctors.name, doctor_path(patient_doctors) %></p>
+    
+<% end %>
